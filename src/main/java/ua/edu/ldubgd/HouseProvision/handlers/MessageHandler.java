@@ -26,7 +26,6 @@ public class MessageHandler implements Handler<Message>{
     private HouseQueueDataService houseQueueDataService;
 
 
-//    private final Cache<BotUser> cache;
 
     @Autowired
     public void setSendMessageService(SendMessageService sendMessageService) {
@@ -48,10 +47,7 @@ public class MessageHandler implements Handler<Message>{
         this.messageSender = messageSender;
     }
 
-//    public MessageHandler(Cache<BotUser> cache) {
-//        this.cache = cache;
-//
-//    }
+
 
 
 
@@ -60,22 +56,22 @@ public class MessageHandler implements Handler<Message>{
         if (message.getText().equals("/start")) {
             sendMessageService.sendMessage(message, "старт", Keyboards.phoneKeyboard());
 
-            if (message.getContact() != null) {
-                // Перевірка на null перед викликом getPhoneNumber()
-                String phoneNumber = message.getContact().getPhoneNumber();
-
-                if (botUserDataService.statusNumber(phoneNumber)) {
-                    sendMessageService.sendMessage(message, "ok");
-                    System.out.println(phoneNumber);
-                } else {
-                    sendMessageService.sendMessage(message, "bad");
-                    System.out.println(phoneNumber);
-                }
-            } else {
-                // Обробка ситуації, коли getContact() повертає null
-                sendMessageService.sendMessage(message, "bad");
-                System.out.println("Phone number is not available");
-            }
+//            if (message.getContact() != null) {
+//                // Перевірка на null перед викликом getPhoneNumber()
+//                String phoneNumber = message.getContact().getPhoneNumber();
+//
+//                if (botUserDataService.statusNumber(phoneNumber)) {
+//                    sendMessageService.sendMessage(message, "ok");
+//                    System.out.println(phoneNumber);
+//                } else {
+//                    sendMessageService.sendMessage(message, "bad");
+//                    System.out.println(phoneNumber);
+//                }
+//            } else {
+//                // Обробка ситуації, коли getContact() повертає null
+//                sendMessageService.sendMessage(message, "bad");
+//                System.out.println("Phone number is not available");
+//            }
         }
         else {
             switch (message.getText()) {
@@ -84,6 +80,7 @@ public class MessageHandler implements Handler<Message>{
 //                        houseQueueDataService.getUserQueue(message.));
                     break;
                 case "/register":
+                    sendMessageService.sendRegister(message);
                     break;
                 case "/compensation":
                     break;

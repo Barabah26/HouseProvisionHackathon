@@ -29,4 +29,15 @@ public class House {
     private String location;
     private int botUserId;
     private String sourceOfFunding;
+
+    @Override
+    public String toString() {
+        return "Площа: " + area + "\n"
+                + "Кількість кімнат: " + numberOfRooms + "\n"
+                + "Вартість: " + cost + "\n"
+                + "Місто: " + location + "\n"
+                + "Джерело фінансування: " + sourceOfFunding;
+
+    }
+
 }

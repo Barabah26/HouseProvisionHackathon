@@ -17,7 +17,7 @@ public class HouseDataService {
         this.houseRepository = houseRepository;
     }
 
-    public static House getAllInfoAboutUser(Long houseId) {
+    public static House getHouseById(Long houseId) {
 //        написав метод який витягує список  користувачів із бази даних з необхідними
 //                телеграм id і statement
 
@@ -31,6 +31,17 @@ public class HouseDataService {
         }
         return house;
 
+    }
+
+    public static House getHouseByUserId(Long userId){
+        House house = new House();
+
+        List<House> houses = houseRepository.findByBotUserId(userId);
+
+        if (!houses.isEmpty()){
+            house= houses.get(houses.size()-1);
+        }
+        return house;
     }
 
 }

@@ -29,7 +29,7 @@ public class HouseQueueDataService {
         List<HouseQueue> houseQueues = houseQueueRepository.findByUserId(userId);
 
         if (!houseQueues.isEmpty()){
-            houseQueue = houseQueues.getFirst();
+            houseQueue = houseQueues.get(0);
         }
         return houseQueue;
 

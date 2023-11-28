@@ -30,7 +30,6 @@ public class BotUser {
     private String lastName;
     private String location;
     private int experience;
-    private int houseId;
     private boolean isEntered;
 
 

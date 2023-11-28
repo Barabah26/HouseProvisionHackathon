@@ -5,13 +5,14 @@ import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboardMarkup;
+import ua.edu.ldubgd.HouseProvision.domains.BotUser;
+import ua.edu.ldubgd.HouseProvision.domains.House;
 import ua.edu.ldubgd.HouseProvision.messageSender.MessageSender;
 
 @Service
 public class SendMessageService {
     private final MessageSender messageSender;
 
-//    private final Cache<BotUser> cache;
 
     public SendMessageService(MessageSender messageSender) {
 //        this.cache=cache;
@@ -80,7 +81,18 @@ public class SendMessageService {
 
 
 
+public void sendRegister(Message message){
 
+//    BotUser botUser = BotUserDataService.getAllInfoAboutUser("123456789");
+    System.out.println(message.getChatId());
+    BotUser botUser = BotUserDataService.getAllInfoAboutUser(message.getChatId());
+
+    House house = HouseDataService.getHouseByUserId(botUser.getUserId());
+
+    sendMessage(message,house.toString());
+
+
+}
 
 //    public void sendAllInfoAboutUserFromDataBasa(Message message) {
 //        BotUser botUser=BotUserDataService.getAllInfoAboutUser(

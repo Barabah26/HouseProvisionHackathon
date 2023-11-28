@@ -23,7 +23,19 @@ public class BotUserDataService {
         List<BotUser> botUsers=botUserRepository.findByPhoneNumber(phoneNumber);
 
         if (!botUsers.isEmpty()){
-            botUser= botUsers.getFirst();
+            botUser= botUsers.get(0);
+        }
+        return botUser;
+
+    }
+    public static BotUser getAllInfoAboutUser(Long telegramId) {
+
+        BotUser botUser=new BotUser();
+
+        List<BotUser> botUsers=botUserRepository.findByTelegramId(telegramId);
+
+        if (!botUsers.isEmpty()){
+            botUser= botUsers.get(0);
         }
         return botUser;
 
@@ -35,7 +47,7 @@ public class BotUserDataService {
         List<BotUser> botUsers=botUserRepository.findByPhoneNumber(phoneNumber);
 
         if (!botUsers.isEmpty()){
-            botUser= botUsers.getFirst();
+            botUser= botUsers.get(0);
         }
 
         return botUser.isEntered();
