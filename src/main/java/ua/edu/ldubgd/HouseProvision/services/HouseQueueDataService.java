@@ -21,8 +21,7 @@ public class HouseQueueDataService {
     }
 
     public HouseQueue getUserQueue(Long userId) {
-//        написав метод який витягує список  користувачів із бази даних з необхідними
-//                телеграм id і statement
+
 
 
         HouseQueue houseQueue = new HouseQueue();
