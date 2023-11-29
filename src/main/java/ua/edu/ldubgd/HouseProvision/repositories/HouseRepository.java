@@ -8,8 +8,6 @@ import java.util.List;
 
 @Repository
 public interface HouseRepository extends JpaRepository<House, Long> {
-    List<House> findByHouseId(Long houseId);
-
     List<House> findByBotUserId(Long userId);
 
 }

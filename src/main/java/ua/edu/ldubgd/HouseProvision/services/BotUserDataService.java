@@ -10,13 +10,13 @@ import java.util.List;
 @Service
 public class BotUserDataService {
 
-    private static BotUserRepository botUserRepository;
+    private BotUserRepository botUserRepository;
     @Autowired
     public BotUserDataService(BotUserRepository botUserRepository) {
         this.botUserRepository = botUserRepository;
     }
 
-    public static BotUser getAllInfoAboutUser(String phoneNumber) {
+    public BotUser getAllInfoAboutUser(String phoneNumber) {
 
         BotUser botUser=new BotUser();
 
@@ -28,30 +28,19 @@ public class BotUserDataService {
         return botUser;
 
     }
-    public static BotUser getAllInfoAboutUser(Long telegramId) {
+    public BotUser getAllInfoAboutUser(Long telegramId) {
 
-        BotUser botUser=new BotUser();
-
-        List<BotUser> botUsers=botUserRepository.findByTelegramId(telegramId);
-
-        if (!botUsers.isEmpty()){
-            botUser= botUsers.get(0);
-        }
-        return botUser;
-
-    }
-
-    public Boolean statusRegistration(String phoneNumber){
         BotUser botUser = new BotUser();
 
-        List<BotUser> botUsers=botUserRepository.findByPhoneNumber(phoneNumber);
+        List<BotUser> botUsers = botUserRepository.findByTelegramId(telegramId);
 
         if (!botUsers.isEmpty()){
             botUser= botUsers.get(0);
         }
+        return botUser;
 
-        return botUser.isEntered();
     }
+
 
     public Boolean statusNumber(String phoneNumber){
         /**
@@ -64,4 +53,11 @@ public class BotUserDataService {
 //        }
         return botUsers.isEmpty();
     }
+
+    public Boolean statusTelegramId(Long telegramId) {
+        List<BotUser> botUsers = botUserRepository.findByTelegramId(telegramId);
+        return !botUsers.isEmpty();
+    }
+
+
 }

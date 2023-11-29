@@ -20,11 +20,11 @@ public class HouseQueue {
     @GeneratedValue(strategy = GenerationType.IDENTITY,
             generator = "HouseQueue_sequence")
     private Long Id;
-    private Long userId;
     private Long numberInQueue;
+    private Long telegramId;
 
     @Override
     public String toString() {
-        return "Ваш номер в черзі : " + numberInQueue;
+        return "Ваш номер в черзі: " + numberInQueue;
     }
 }

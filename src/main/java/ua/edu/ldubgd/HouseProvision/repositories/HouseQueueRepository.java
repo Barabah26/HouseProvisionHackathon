@@ -9,8 +9,7 @@ import java.util.List;
 
 @Repository
 public interface HouseQueueRepository extends JpaRepository<HouseQueue, Long> {
-    List<HouseQueue> findByUserId(Long userId);
-
+    List<HouseQueue> findByTelegramId(Long telegramId);
 
 
 }

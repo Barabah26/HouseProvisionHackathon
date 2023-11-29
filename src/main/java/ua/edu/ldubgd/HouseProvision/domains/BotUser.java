@@ -23,14 +23,12 @@ public class BotUser {
 
 
     private Long Id;
-    private Long userId;
     private Long telegramId;
     private String phoneNumber;
     private String firstName;
     private String lastName;
     private String location;
     private int experience;
-    private boolean isEntered;
 
 
 }

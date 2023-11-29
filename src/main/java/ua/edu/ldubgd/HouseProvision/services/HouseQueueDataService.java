@@ -2,6 +2,7 @@ package ua.edu.ldubgd.HouseProvision.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import ua.edu.ldubgd.HouseProvision.domains.BotUser;
 import ua.edu.ldubgd.HouseProvision.domains.House;
 import ua.edu.ldubgd.HouseProvision.domains.HouseQueue;
 import ua.edu.ldubgd.HouseProvision.repositories.HouseQueueRepository;
@@ -20,19 +21,21 @@ public class HouseQueueDataService {
 
     }
 
-    public HouseQueue getUserQueue(Long userId) {
-
-
+    public HouseQueue getUserQueue(Long telegramId) {
 
         HouseQueue houseQueue = new HouseQueue();
 
-        List<HouseQueue> houseQueues = houseQueueRepository.findByUserId(userId);
+        List<HouseQueue> houseQueues = houseQueueRepository.findByTelegramId(telegramId);
 
         if (!houseQueues.isEmpty()){
-            houseQueue = houseQueues.get(0);
+            houseQueue = houseQueues.get(houseQueues.size()-1);
         }
         return houseQueue;
 
+    }
+    public Boolean statusTelegramId(Long telegramId) {
+        List<HouseQueue> houseQueues = houseQueueRepository.findByTelegramId(telegramId);
+        return !houseQueues.isEmpty();
     }
 
 }

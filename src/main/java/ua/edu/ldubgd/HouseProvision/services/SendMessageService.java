@@ -1,5 +1,6 @@
 package ua.edu.ldubgd.HouseProvision.services;
 
+import com.vdurmont.emoji.EmojiParser;
 import org.springframework.stereotype.Service;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Message;
@@ -7,16 +8,24 @@ import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMa
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboardMarkup;
 import ua.edu.ldubgd.HouseProvision.domains.BotUser;
 import ua.edu.ldubgd.HouseProvision.domains.House;
+import ua.edu.ldubgd.HouseProvision.domains.HouseQueue;
 import ua.edu.ldubgd.HouseProvision.messageSender.MessageSender;
 
 @Service
 public class SendMessageService {
     private final MessageSender messageSender;
+    private BotUserDataService botUserDataService;
+    private HouseDataService houseDataService;
+
+    private HouseQueueDataService houseQueueDataService;
 
 
-    public SendMessageService(MessageSender messageSender) {
+    public SendMessageService(HouseQueueDataService houseQueueDataService ,MessageSender messageSender, BotUserDataService botUserDataService, HouseDataService houseDataService) {
 //        this.cache=cache;
         this.messageSender = messageSender;
+        this.houseDataService = houseDataService;
+        this.botUserDataService = botUserDataService;
+        this.houseQueueDataService = houseQueueDataService;
     }
 
 
@@ -73,80 +82,30 @@ public class SendMessageService {
                 .chatId(String.valueOf(messageFromUser.getChatId()))
                 .replyMarkup(replyKeyboard)
                 .build();
-
-        // Надсилання повідомлення за допомогою messageSender.sendMessage()
         messageSender.sendMessage(message);
     }
 
 
 
 
-public void sendRegister(Message message){
+    public void sendRegister(Message message) {
+        if (houseDataService.statusTelegramId(message.getChatId())) {
+            House house = houseDataService.getHouseByTelegramId(message.getChatId());
+            sendMessage(message, house.toString());
+        } else {
+            sendMessage(message, EmojiParser.parseToUnicode("На жаль, ваші дані відсутні у реєстрі" + "\uD83D\uDE14"));
+        }
+    }
 
-//    BotUser botUser = BotUserDataService.getAllInfoAboutUser("123456789");
-    System.out.println(message.getChatId());
-    BotUser botUser = BotUserDataService.getAllInfoAboutUser(message.getChatId());
+    public void sendQueue(Message message) {
+        if (houseQueueDataService.statusTelegramId(message.getChatId())) {
+            HouseQueue houseQueue = houseQueueDataService.getUserQueue(message.getChatId());
+            sendMessage(message, houseQueue.toString());
+            System.out.println(message.getChatId().toString());
+        } else {
+            sendMessage(message, EmojiParser.parseToUnicode("На жаль, ваші дані відсутні у черзі" + "\uD83D\uDE14"));
+        }
 
-    House house = HouseDataService.getHouseByUserId(botUser.getUserId());
-
-    sendMessage(message,house.toString());
-
-
-}
-
-//    public void sendAllInfoAboutUserFromDataBasa(Message message) {
-//        BotUser botUser=BotUserDataService.getAllInfoAboutUser(
-//                message.getChatId(),
-//                BotUser.STATEMENTFORSTUDY);
-//
-//
-//        if (botUser.getTelegramId()!=null){
-//            sendMessage(
-//                    message,
-//                    botUser.toString()
-//            );
-//
-//        }else {
-//            sendMessage(
-//                    message,
-//                    "Інформації про "+BotUser.STATEMENTFORSTUDY +" незнайдено");
-//        }
-//
-//
-//        botUser=BotUserDataService.getAllInfoAboutUser(
-//                message.getChatId(),
-//                BotUser.STATEMENTFORMILITARI);
-//
-//
-//        if (botUser.getTelegramId()!=null){
-//            sendMessage(message,botUser.toString(),Keyboards.linkToMenuKeyboard());
-//
-//        }else {
-//            sendMessage(
-//                    message,
-//                    "Інформації про "+BotUser.STATEMENTFORMILITARI
-//                            +" незнайдено",
-//                    Keyboards.linkToMenuKeyboard());
-//        }
-//
-//
-//    }
-//
-//    public void sendInfoAboutUserFromDataBasa(Message message,String statement){
-//        BotUser botUser=BotUserDataService.getAllInfoAboutUser(message.getChatId(),statement);
-//
-//        if(botUser.getTelegramId()==null){
-//            sendMessage(
-//                    message,
-//                    "Інформації незнайдено",
-//                    Keyboards.linkToMenuKeyboard()
-//            );
-//        }else {
-//            sendMessage(message,botUser.toString(),Keyboards.linkToMenuKeyboard());
-//
-//        }
-//
-//
-//    }
+    }
 
 }

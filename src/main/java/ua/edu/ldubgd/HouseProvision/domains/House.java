@@ -1,5 +1,6 @@
 package ua.edu.ldubgd.HouseProvision.domains;
 
+import com.vdurmont.emoji.EmojiParser;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -32,11 +33,13 @@ public class House {
 
     @Override
     public String toString() {
-        return "Площа: " + area + "\n"
-                + "Кількість кімнат: " + numberOfRooms + "\n"
-                + "Вартість: " + cost + "\n"
-                + "Місто: " + location + "\n"
-                + "Джерело фінансування: " + sourceOfFunding;
+        return EmojiParser.parseToUnicode(
+                "\uD83C\uDFE2" + "Ваше житло:" + "\n\n"
+                + "⬜"  + "Площа: " + area + " м.кв" + "\n\n"
+                +  "\uD83D\uDD22"  + "Кількість кімнат: " + numberOfRooms + "\n\n"
+                + "🪙" + "Вартість: " + cost + " грн" + "\n\n"
+                + "\uD83D\uDDFA\uFE0F" + "Місто: " + location + "\n\n"
+                + "💰" + "Джерело фінансування: " + sourceOfFunding);
 
     }
 

@@ -2,20 +2,13 @@ package ua.edu.ldubgd.HouseProvision.handlers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import com.vdurmont.emoji.EmojiParser;
-import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Message;
-import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboardMarkup;
-import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.KeyboardButton;
-import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import ua.edu.ldubgd.HouseProvision.domains.MenuText;
 import ua.edu.ldubgd.HouseProvision.keyboards.Keyboards;
 import ua.edu.ldubgd.HouseProvision.messageSender.MessageSender;
 import ua.edu.ldubgd.HouseProvision.services.BotUserDataService;
 import ua.edu.ldubgd.HouseProvision.services.HouseQueueDataService;
 import ua.edu.ldubgd.HouseProvision.services.SendMessageService;
-
-import java.util.List;
 
 @Component
 public class MessageHandler implements Handler<Message>{
@@ -76,8 +69,7 @@ public class MessageHandler implements Handler<Message>{
         else {
             switch (message.getText()) {
                 case "/queue":
-//                sendMessageService.sendMessage(message,
-//                        houseQueueDataService.getUserQueue(message.));
+                    sendMessageService.sendQueue(message);
                     break;
                 case "/register":
                     sendMessageService.sendRegister(message);
@@ -91,7 +83,7 @@ public class MessageHandler implements Handler<Message>{
                     sendMessageService.sendMessage(message, "Вибачте, ви ввели невірну команду");
                     break;
 
-        }
+             }
         }
     }
-    }
+}
