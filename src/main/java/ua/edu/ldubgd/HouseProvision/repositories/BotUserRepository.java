@@ -10,6 +10,7 @@ import java.util.List;
 @Repository
 public interface BotUserRepository extends JpaRepository<BotUser,Long> {
     List<BotUser> findByTelegramId(Long telegramId);
+
     List<BotUser> findByPhoneNumber(String phoneNumber);
 
 

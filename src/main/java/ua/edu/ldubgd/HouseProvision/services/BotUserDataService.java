@@ -56,7 +56,7 @@ public class BotUserDataService {
 
     public Boolean statusTelegramId(Long telegramId) {
         List<BotUser> botUsers = botUserRepository.findByTelegramId(telegramId);
-        return !botUsers.isEmpty();
+        return botUsers.isEmpty();
     }
 
 

@@ -18,8 +18,6 @@ public class MessageHandler implements Handler<Message>{
 
     private HouseQueueDataService houseQueueDataService;
 
-
-
     @Autowired
     public void setSendMessageService(SendMessageService sendMessageService) {
         this.sendMessageService = sendMessageService;
@@ -40,50 +38,45 @@ public class MessageHandler implements Handler<Message>{
         this.messageSender = messageSender;
     }
 
-
-
-
-
     @Override
     public void choose(Message message) {
-        if (message.getText().equals("/start")) {
-            sendMessageService.sendMessage(message, "старт", Keyboards.phoneKeyboard());
-
-//            if (message.getContact() != null) {
-//                // Перевірка на null перед викликом getPhoneNumber()
-//                String phoneNumber = message.getContact().getPhoneNumber();
-//
-//                if (botUserDataService.statusNumber(phoneNumber)) {
-//                    sendMessageService.sendMessage(message, "ok");
-//                    System.out.println(phoneNumber);
-//                } else {
-//                    sendMessageService.sendMessage(message, "bad");
-//                    System.out.println(phoneNumber);
-//                }
-//            } else {
-//                // Обробка ситуації, коли getContact() повертає null
-//                sendMessageService.sendMessage(message, "bad");
-//                System.out.println("Phone number is not available");
-//            }
-        }
-        else {
-            switch (message.getText()) {
-                case "/queue":
-                    sendMessageService.sendQueue(message);
-                    break;
-                case "/register":
-                    sendMessageService.sendRegister(message);
-                    break;
-                case "/compensation":
+        if(message.hasText()){
+            String textFromUser=message.getText();
+            if(botUserDataService.statusTelegramId(message.getChatId())){
+                switch (textFromUser) {
+                case "/start":
+                    sendMessageService.sendMessage(message, "старт");
                     break;
                 case "/documents":
                     sendMessageService.sendMessage(message, MenuText.DOCUMENTS);
                     break;
                 default:
-                    sendMessageService.sendMessage(message, "Вибачте, ви ввели невірну команду");
+                    sendMessageService.sendMessage(message, "Ви не авторизований користувач");
                     break;
+            }
+            }else {
+                switch (textFromUser) {
+                    case "/start":
+                        sendMessageService.sendMessage(message, "старт");
+                        break;
+                    case "/queue":
+                        sendMessageService.sendQueue(message);
+                        break;
+                    case "/register":
+                        sendMessageService.sendRegister(message);
+                        break;
+                    case "/compensation":
+                        break;
+                    case "/documents":
+                        sendMessageService.sendMessage(message, MenuText.DOCUMENTS);
+                        break;
+                    default:
+                        sendMessageService.sendMessage(message, "Вибачте, ви ввели невірну команду");
+                        break;
+                }
+            }
 
-             }
         }
-    }
+
+        }
 }

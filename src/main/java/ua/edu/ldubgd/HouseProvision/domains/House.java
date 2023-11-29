@@ -7,8 +7,6 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
-import java.util.Objects;
-
 @Entity
 @Table
 @AllArgsConstructor
@@ -28,7 +26,7 @@ public class House {
     private int numberOfRooms;
     private double cost;
     private String location;
-    private int botUserId;
+    private Long telegramId;
     private String sourceOfFunding;
 
     @Override
