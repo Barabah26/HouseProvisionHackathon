@@ -17,10 +17,10 @@ public class HouseDataService {
         this.houseRepository = houseRepository;
     }
 
-    public static House getHouseByTelegramId(Long userId){
+    public static House getHouseByTelegramId(Long telegramId){
         House house = new House();
 
-        List<House> houses = houseRepository.findByTelegramId(userId);
+        List<House> houses = houseRepository.findByTelegramId(telegramId);
 
         if (!houses.isEmpty()){
             house= houses.get(houses.size()-1);

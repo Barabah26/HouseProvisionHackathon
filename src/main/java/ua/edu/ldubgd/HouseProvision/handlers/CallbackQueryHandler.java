@@ -15,12 +15,7 @@ public class CallbackQueryHandler implements Handler<CallbackQuery>{
     public void setSendMessageService(SendMessageService sendMessageService) {
         this.sendMessageService = sendMessageService;
     }
-
-
-//    public CallbackQueryHandler(Cache<BotUser> cache) {
-//        this.cache = cache;
-//    }
-
+    
     @Override
     public void choose(CallbackQuery callbackQuery) {
 

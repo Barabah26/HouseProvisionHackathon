@@ -21,7 +21,6 @@ public class House {
     @GeneratedValue(strategy = GenerationType.IDENTITY,
             generator = "house_sequence")
     private Long Id;
-    private Long houseId;
     private double area;
     private int numberOfRooms;
     private double cost;
