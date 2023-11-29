@@ -4,12 +4,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.objects.Message;
 import ua.edu.ldubgd.HouseProvision.domains.MenuText;
+import ua.edu.ldubgd.HouseProvision.keybords.Keyboard;
 import ua.edu.ldubgd.HouseProvision.messageSender.MessageSender;
 import ua.edu.ldubgd.HouseProvision.services.BotUserDataService;
 import ua.edu.ldubgd.HouseProvision.services.HouseQueueDataService;
 import ua.edu.ldubgd.HouseProvision.services.SendMessageService;
-
-import java.awt.*;
 
 @Component
 public class MessageHandler implements Handler<Message> {
@@ -51,9 +50,14 @@ public class MessageHandler implements Handler<Message> {
                                 "тому ви не можете використовувати весь функціонал чат-боту" + "☹\uFE0F");
                         break;
                     case "/documents":
-                        sendMessageService.sendMessage(message, MenuText.DOCUMENTS);
+                        sendMessageService.sendMessage(message,"Виберіть інформацію, яка вам потрібна ⤵", Keyboard.chooseDocuments());
                         break;
-
+                    case "Компенсація за піднайом(найом)":
+                        sendMessageService.sendMessage(message,MenuText.DOCUMENTS1);
+                        break;
+                    case "Компенсація за належне їм для Отримання  жиле приміщення":
+                        sendMessageService.sendMessage(message,MenuText.DOCUMENTS2);
+                        break;
                     case "/queue":
                     case "/register":
                     case "/compensation":
@@ -88,7 +92,13 @@ public class MessageHandler implements Handler<Message> {
 
                         break;
                     case "/documents":
-                        sendMessageService.sendMessage(message, MenuText.DOCUMENTS);
+                        sendMessageService.sendMessage(message,"Виберіть інформацію, яка вам потрібна ⤵", Keyboard.chooseDocuments());
+                        break;
+                    case "Компенсація за піднайом(найом)":
+                        sendMessageService.sendMessage(message,MenuText.DOCUMENTS1);
+                        break;
+                    case "Компенсація за належне їм для Отримання  жиле приміщення":
+                        sendMessageService.sendMessage(message,MenuText.DOCUMENTS2);
                         break;
                     default:
                         sendMessageService.sendMessage(message, "Вви ввели невірну команду" + "☹\uFE0F");

@@ -3,7 +3,7 @@ package ua.edu.ldubgd.HouseProvision.domains;
 import com.vdurmont.emoji.EmojiParser;
 
 public class MenuText {
-    public static final String DOCUMENTS = EmojiParser.parseToUnicode("    \uD83D\uDD3A" + "Перелік необхідних документів для отримання грошової " +
+    public static final String DOCUMENTS1 = EmojiParser.parseToUnicode("    \uD83D\uDD3A" + "Перелік необхідних документів для отримання грошової " +
             "компенсації за піднайм(найм) житлових приміщень:\n\n" +
             "1\uFE0F⃣" + "Рапорт\n\n"
             + "2\uFE0F⃣" +"Копії документів, що посвідчують особу та підтверджують громадянство України військовослужбовця та членів його сім’ї;\n\n"
@@ -15,4 +15,6 @@ public class MenuText {
     public static final String START_MESSAGE = EmojiParser.parseToUnicode(
             "Вітаємо Вас у нашому чат-боті" + "\uD83D\uDC4B" + "\n"
     + "Тут ви знайдете потрібну інформацію, що стосується житлового забезпечення військовослужбоців");
+
+    public static final String DOCUMENTS2 = EmojiParser.parseToUnicode("scdcd");
 }
