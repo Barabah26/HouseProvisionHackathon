@@ -62,8 +62,6 @@ public class BotUserDataService {
 
         return Math.ceil(compensation);
 
-
-
     }
 
     public Boolean statusTelegramId(Long telegramId) {

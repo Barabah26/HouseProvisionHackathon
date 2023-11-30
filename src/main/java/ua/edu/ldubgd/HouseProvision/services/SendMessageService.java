@@ -32,13 +32,11 @@ public class SendMessageService {
      * @param text    Текст повідомлення для надсилання.
      */
     public void sendMessage(Message messageFromUser, String text) {
-        // Створення об'єкту SendMessage для надсилання текстового повідомлення
         SendMessage message = SendMessage.builder()
                 .text(text)
                 .chatId(String.valueOf(messageFromUser.getChatId()))
                 .build();
 
-        // Надсилання повідомлення за допомогою messageSender.sendMessage()
         messageSender.sendMessage(message);
     }
 
@@ -50,7 +48,6 @@ public class SendMessageService {
      * @param replyKeyboard   Об'єкт з клавіатурою відповіді (звичайна клавіатура з кнопками).
      */
     public void sendMessage(Message messageFromUser, String text, ReplyKeyboardMarkup replyKeyboard) {
-        // Створення об'єкту SendMessage для надсилання текстового повідомлення з клавіатурою відповіді
         SendMessage message = SendMessage.builder()
                 .text(text)
                 .chatId(String.valueOf(messageFromUser.getChatId()))

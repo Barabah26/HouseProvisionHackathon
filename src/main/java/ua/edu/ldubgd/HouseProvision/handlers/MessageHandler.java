@@ -1,5 +1,6 @@
 package ua.edu.ldubgd.HouseProvision.handlers;
 
+import com.vdurmont.emoji.EmojiParser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.objects.Message;
@@ -84,21 +85,23 @@ public class MessageHandler implements Handler<Message> {
                         sendMessageService.sendRegister(message);
                         break;
                     case "/compensation":
-                        sendMessageService.sendMessage(message, "Виберіть тип компенсації:⤵\uFE0F", Keyboard.chooseCompensation());
+                        sendMessageService.sendMessage(message, "Виберіть тип компенсації⤵\uFE0F", Keyboard.chooseCompensation());
                         break;
                     case "Розрахунок компенсації за піднайом(найом)":
-                        sendMessageService.sendMessage(message, "Розрахунок компенсації за піднайом(найом)");
+                        sendMessageService.sendMessage(message, EmojiParser.parseToUnicode("\uD83D\uDCB0"
+                                + "Розрахунок компенсації за піднайом(найом)"));
                         sendMessageService.sendMessage(
                                 message,
                                 Double.toString(
-                                        botUserDataService.compensationInMonth(message.getChatId()))+" грн.");
+                                        botUserDataService.compensationInMonth(message.getChatId()))+" грн");
                         break;
                     case "Розрахунок компенсації за належне їм для отримання  жиле приміщення":
-                        sendMessageService.sendMessage(message, "Розрахунок компенсації за належне для отримання  жиле приміщення");
+                        sendMessageService.sendMessage(message, EmojiParser.parseToUnicode("\uD83D\uDCB0"
+                                + "Розрахунок компенсації за належне для отримання  жиле приміщення"));
                         sendMessageService.sendMessage(
                                 message,
                                 Double.toString(
-                                        botUserDataService.secondCompensationInMonth(message.getChatId()))+" грн."
+                                        botUserDataService.secondCompensationInMonth(message.getChatId()))+" грн"
                         );
                         break;
                     case "/documents":
