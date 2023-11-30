@@ -60,7 +60,7 @@ public class BotUserDataService {
         double compensation =  (13.65*botUser.getFamilyMembers()+17)
                 *constructionCostByRegionDataService.compensation(botUser.getCity());
 
-        return compensation;
+        return Math.ceil(compensation);
 
 
 

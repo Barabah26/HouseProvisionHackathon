@@ -87,18 +87,19 @@ public class MessageHandler implements Handler<Message> {
                         sendMessageService.sendMessage(message, "Виберіть тип компенсації:⤵\uFE0F", Keyboard.chooseCompensation());
                         break;
                     case "Розрахунок компенсації за піднайом(найом)":
-                        sendMessageService.sendMessage(message, "Місячна компенсація ");
+                        sendMessageService.sendMessage(message, "Розрахунок компенсації за піднайом(найом)");
                         sendMessageService.sendMessage(
                                 message,
                                 Double.toString(
-                                        botUserDataService.compensationInMonth(message.getChatId())));
+                                        botUserDataService.compensationInMonth(message.getChatId()))+" грн.");
                         break;
                     case "Розрахунок компенсації за належне їм для отримання  жиле приміщення":
-                        sendMessageService.sendMessage(message, "Місячна компенсація ");
+                        sendMessageService.sendMessage(message, "Розрахунок компенсації за належне для отримання  жиле приміщення");
                         sendMessageService.sendMessage(
                                 message,
                                 Double.toString(
-                                        botUserDataService.secondCompensationInMonth(message.getChatId())));
+                                        botUserDataService.secondCompensationInMonth(message.getChatId()))+" грн."
+                        );
                         break;
                     case "/documents":
                         sendMessageService.sendMessage(message, "Виберіть інформацію, яка вам потрібна ⤵", Keyboard.chooseDocuments());
