@@ -69,7 +69,6 @@ public class SendMessageService {
         if (houseQueueDataService.statusTelegramId(message.getChatId())) {
             HouseQueue houseQueue = houseQueueDataService.getUserQueue(message.getChatId());
             sendMessage(message, houseQueue.toString());
-            System.out.println(message.getChatId().toString());
         } else {
             sendMessage(message, EmojiParser.parseToUnicode("На жаль, ваші дані відсутні у черзі" + "\uD83D\uDE14"));
         }

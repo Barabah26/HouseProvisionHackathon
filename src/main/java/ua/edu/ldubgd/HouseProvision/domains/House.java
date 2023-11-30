@@ -27,6 +27,7 @@ public class House {
     private String location;
     private Long telegramId;
     private String sourceOfFunding;
+    private String data;
 
     @Override
     public String toString() {
@@ -35,7 +36,8 @@ public class House {
                 + "⬜"  + "Площа: " + area + " м.кв" + "\n\n"
                 +  "\uD83D\uDD22"  + "Кількість кімнат: " + numberOfRooms + "\n\n"
                 + "🪙" + "Вартість: " + cost + " грн" + "\n\n"
-                + "\uD83D\uDDFA\uFE0F" + "Місто: " + location);
+                + "\uD83D\uDDFA\uFE0F" + "Місто: " + location + "\n\n"
+                + EmojiParser.parseToUnicode("\uD83D\uDCC5" + "Дата отримання квартири: " + data));
 
     }
 

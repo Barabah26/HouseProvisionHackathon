@@ -1,5 +1,6 @@
 package ua.edu.ldubgd.HouseProvision.domains;
 
+import com.vdurmont.emoji.EmojiParser;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -22,9 +23,11 @@ public class HouseQueue {
     private Long Id;
     private Long numberInQueue;
     private Long telegramId;
+    private String data;
 
     @Override
     public String toString() {
-        return "Ваш номер в черзі: " + numberInQueue;
+        return EmojiParser.parseToUnicode("\uD83C\uDFE2" + "Ваш номер в черзі: " + numberInQueue) + "\n\n"
+                + EmojiParser.parseToUnicode("\uD83D\uDCC5" + "Дата постановки на чергу: " + data);
     }
 }
