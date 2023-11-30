@@ -7,7 +7,6 @@ import ua.edu.ldubgd.HouseProvision.handlers.MessageHandler;
 
 @Component
 public class DefaultProcessor implements Processor{
-
     private final MessageHandler messageHandler;
 
     public DefaultProcessor( MessageHandler messageHandler) {
@@ -19,7 +18,6 @@ public class DefaultProcessor implements Processor{
         messageHandler.choose(message);
 
     }
-
 
 
 

@@ -10,8 +10,9 @@ import ua.edu.ldubgd.HouseProvision.HouseProvisionBot;
 
 @Component
 public class BotInitializer {
+
     @Autowired
-    HouseProvisionBot bot;
+    private HouseProvisionBot bot;
 
     @EventListener({ContextRefreshedEvent.class})
     public void init() throws TelegramApiException {

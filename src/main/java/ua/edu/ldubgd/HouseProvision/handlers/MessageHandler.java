@@ -38,6 +38,7 @@ public class MessageHandler implements Handler<Message> {
         this.messageSender = messageSender;
     }
 
+
     @Override
     public void choose(Message message) {
         if (message.hasText()) {
@@ -50,13 +51,13 @@ public class MessageHandler implements Handler<Message> {
                                 "тому ви не можете використовувати весь функціонал чат-боту" + "☹\uFE0F");
                         break;
                     case "/documents":
-                        sendMessageService.sendMessage(message,"Виберіть інформацію, яка вам потрібна ⤵", Keyboard.chooseDocuments());
+                        sendMessageService.sendMessage(message, "Виберіть інформацію, яка вам потрібна ⤵", Keyboard.chooseDocuments());
                         break;
                     case "Компенсація за піднайом(найом)":
-                        sendMessageService.sendMessage(message,MenuText.DOCUMENTS1);
+                        sendMessageService.sendMessage(message, MenuText.DOCUMENTS1,Keyboard.chooseDocuments());
                         break;
                     case "Компенсація за належне їм для Отримання  жиле приміщення":
-                        sendMessageService.sendMessage(message,MenuText.DOCUMENTS2);
+                        sendMessageService.sendMessage(message, MenuText.DOCUMENTS2,Keyboard.chooseDocuments());
                         break;
                     case "/queue":
                     case "/register":
@@ -83,30 +84,36 @@ public class MessageHandler implements Handler<Message> {
                         sendMessageService.sendRegister(message);
                         break;
                     case "/compensation":
-                        sendMessageService.sendMessage(message, "місячна компенсація");
-                        sendMessageService.sendMessage(message,
-                                Double.toString(botUserDataService.compensationInMonth(message.getChatId())));
-
-                        sendMessageService.sendMessage(message, "орієнтовний час окуплення квартири ");
-                        sendMessageService.sendMessage(message, Integer.toString(botUserDataService.timeOfCompensation(message.getChatId())));
-
+                        sendMessageService.sendMessage(message, "Виберіть тип компенсації:⤵\uFE0F", Keyboard.chooseCompensation());
+                        break;
+                    case "Розрахунок компенсації за піднайом(найом)":
+                        sendMessageService.sendMessage(message, "Місячна компенсація ");
+                        sendMessageService.sendMessage(
+                                message,
+                                Double.toString(
+                                        botUserDataService.compensationInMonth(message.getChatId())));
+                        break;
+                    case "Розрахунок компенсації за належне їм для отримання  жиле приміщення":
+                        sendMessageService.sendMessage(message, "Місячна компенсація ");
+                        sendMessageService.sendMessage(
+                                message,
+                                Double.toString(
+                                        botUserDataService.secondCompensationInMonth(message.getChatId())));
                         break;
                     case "/documents":
-                        sendMessageService.sendMessage(message,"Виберіть інформацію, яка вам потрібна ⤵", Keyboard.chooseDocuments());
+                        sendMessageService.sendMessage(message, "Виберіть інформацію, яка вам потрібна ⤵", Keyboard.chooseDocuments());
                         break;
                     case "Компенсація за піднайом(найом)":
-                        sendMessageService.sendMessage(message,MenuText.DOCUMENTS1);
+                        sendMessageService.sendMessage(message, MenuText.DOCUMENTS1,Keyboard.chooseDocuments());
                         break;
                     case "Компенсація за належне їм для Отримання  жиле приміщення":
-                        sendMessageService.sendMessage(message,MenuText.DOCUMENTS2);
+                        sendMessageService.sendMessage(message, MenuText.DOCUMENTS2,Keyboard.chooseDocuments());
                         break;
                     default:
                         sendMessageService.sendMessage(message, "Вви ввели невірну команду" + "☹\uFE0F");
                         break;
                 }
             }
-
         }
-
     }
 }

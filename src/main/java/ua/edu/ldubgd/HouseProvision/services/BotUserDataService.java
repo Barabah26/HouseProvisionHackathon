@@ -12,24 +12,17 @@ import java.util.List;
 public class BotUserDataService {
 
     private BotUserRepository botUserRepository;
+    private ConstructionCostByRegionDataService constructionCostByRegionDataService;
 
     @Autowired
-    public BotUserDataService(BotUserRepository botUserRepository) {
+    public BotUserDataService(BotUserRepository botUserRepository, ConstructionCostByRegionDataService constructionCostByRegionDataService, CitiesDataService citiesDataService) {
         this.botUserRepository = botUserRepository;
+        this.constructionCostByRegionDataService = constructionCostByRegionDataService;
+        this.citiesDataService = citiesDataService;
     }
 
-    public BotUser getAllInfoAboutUser(String phoneNumber) {
+    private CitiesDataService citiesDataService;
 
-        BotUser botUser = new BotUser();
-
-        List<BotUser> botUsers = botUserRepository.findByPhoneNumber(phoneNumber);
-
-        if (!botUsers.isEmpty()) {
-            botUser = botUsers.get(0);
-        }
-        return botUser;
-
-    }
 
     public BotUser getAllInfoAboutUser(Long telegramId) {
 
@@ -46,48 +39,39 @@ public class BotUserDataService {
 
     public double compensationInMonth(Long telegramId) {
         BotUser botUser = getAllInfoAboutUser(telegramId);
-        House house = HouseDataService.getHouseByTelegramId(telegramId);
 
-        double compensation = 0;
-        if (house.getLocation().equals("Київ")) {
-            compensation = 3800.0;
-        } else {
-            compensation = 2850.0;
+        double compensation = 2589.0;
+
+        if (botUser.getCity().equals("Київ")) {
+            compensation = compensation*2;
+        } else if(!citiesDataService.cityIsEmpty(botUser.getCity())){
+            compensation = compensation*1.5;
         }
 
         if (botUser.getFamilyMembers() >= 3) {
             compensation = compensation * 1.5;
         }
-
         return compensation;
     }
 
-    public int timeOfCompensation(Long telegramId){
-        House house = HouseDataService.getHouseByTelegramId(telegramId);
+    public double secondCompensationInMonth(Long telegramId) {
+        BotUser botUser = getAllInfoAboutUser(telegramId);
 
-        double compensation = compensationInMonth(telegramId);
+        double compensation =  (13.65*botUser.getFamilyMembers()+17)
+                *constructionCostByRegionDataService.compensation(botUser.getCity());
+
+        return compensation;
 
 
 
-        return (int) Math.ceil((house.getCost()/compensation)/12) ;
-    }
-
-    public Boolean statusNumber(String phoneNumber) {
-        /**
-         *повертає fals якщо контакту немає в базі даних
-         */
-
-        List<BotUser> botUsers = botUserRepository.findByPhoneNumber(phoneNumber);
-//        for (BotUser user: botUsers) {
-//            System.out.println(user);
-//        }
-        return botUsers.isEmpty();
     }
 
     public Boolean statusTelegramId(Long telegramId) {
         List<BotUser> botUsers = botUserRepository.findByTelegramId(telegramId);
         return botUsers.isEmpty();
     }
+
+
 
 
 }

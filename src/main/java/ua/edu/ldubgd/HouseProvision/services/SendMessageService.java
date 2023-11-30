@@ -16,21 +16,14 @@ public class SendMessageService {
     private final MessageSender messageSender;
     private BotUserDataService botUserDataService;
     private HouseDataService houseDataService;
-
     private HouseQueueDataService houseQueueDataService;
 
-
     public SendMessageService(HouseQueueDataService houseQueueDataService ,MessageSender messageSender, BotUserDataService botUserDataService, HouseDataService houseDataService) {
-//        this.cache=cache;
         this.messageSender = messageSender;
         this.houseDataService = houseDataService;
         this.botUserDataService = botUserDataService;
         this.houseQueueDataService = houseQueueDataService;
     }
-
-
-
-
 
     /**
      * Надсилає просте текстове повідомлення до чату з вказаним текстом.
@@ -43,25 +36,6 @@ public class SendMessageService {
         SendMessage message = SendMessage.builder()
                 .text(text)
                 .chatId(String.valueOf(messageFromUser.getChatId()))
-                .build();
-
-        // Надсилання повідомлення за допомогою messageSender.sendMessage()
-        messageSender.sendMessage(message);
-    }
-
-    /**
-     * Надсилає текстове повідомлення до чату з можливістю додати інлайн клавіатуру.
-     *
-     * @param messageFromUser Об'єкт, що представляє отримане повідомлення від користувача.
-     * @param text            Текст повідомлення для надсилання.
-     * @param inlineKeyboard  Об'єкт з інлайн клавіатурою (кнопки для взаємодії).
-     */
-    public void sendMessage(Message messageFromUser, String text, InlineKeyboardMarkup inlineKeyboard) {
-        // Створення об'єкту SendMessage для надсилання текстового повідомлення з інлайн клавіатурою
-        SendMessage message = SendMessage.builder()
-                .text(text)
-                .chatId(String.valueOf(messageFromUser.getChatId()))
-                .replyMarkup(inlineKeyboard)
                 .build();
 
         // Надсилання повідомлення за допомогою messageSender.sendMessage()
@@ -84,9 +58,6 @@ public class SendMessageService {
                 .build();
         messageSender.sendMessage(message);
     }
-
-
-
 
     public void sendRegister(Message message) {
         if (houseDataService.statusTelegramId(message.getChatId())) {

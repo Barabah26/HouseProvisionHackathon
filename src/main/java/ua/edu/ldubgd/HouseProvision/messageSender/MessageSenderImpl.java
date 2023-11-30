@@ -10,8 +10,6 @@ import ua.edu.ldubgd.HouseProvision.HouseProvisionBot;
 @Component
 public class MessageSenderImpl implements MessageSender{
     private HouseProvisionBot telegramBot;
-
-
     @Override
     public void sendMessage(SendMessage sendMessage) {
         try {

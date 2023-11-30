@@ -27,6 +27,7 @@ public class BotUser {
     private String phoneNumber;
     private String firstName;
     private String lastName;
+    private String city;
     private int experience;
     private int familyMembers;
 
